@@ -1,0 +1,74 @@
+AIzaSyAbkaezXl9cJKLb0ACxy0XzjNZ-QcsBFbk
+
+
+42.235112 lat
+-71.14711599999998 lang
+
+
+42.23543177164179
+-71.1321487405803
+
+42.22912748033119
+-71.14643096923828
+
+42.245598649037795
+-71.15357208356727
+
+
+42.25759345267867
+-71.20053863473004
+
+lat:"42.22694117072801", lng:"-71.17472076730337"
+lat:"42.23893952924004", lng:"-71.16071319789625"
+lat:"42.237719457033805",  lng:"-71.12967682303861"
+lat:"42.22938170053097",  lng:"-71.13324737758375"
+lat:"42.260896709763315",  lng:"-71.1494522105204"
+
+
+
+C:\Users\Administrator>cf login -a https://api.run.pivotal.io
+API endpoint: https://api.run.pivotal.io
+FAILED
+Error performing request: Get https://api.run.pivotal.io/v2/info: dial tcp: look
+up api.run.pivotal.io: getaddrinfow: No such host is known.
+
+C:\Users\Administrator>
+
+
+
+>cf login -a https://api.run.pivotal.io
+
+C:\Users\Administrator\Documents\GitHub>git clone https://github.com/sirishkumar
+p/VZTechTrackApp.git
+
+
+C:\Users\Administrator\Documents\GitHub>cd C:\Users\Administrator\Documents\GitH
+ub
+
+
+
+
+C:\Users\Administrator\Documents\GitHub>cf push TechTracker
+
+
+
+USERNAME:PASSWORD@
+http://sirishkumar.p@gmail.com:!Verizon1!@techtracker.cfapps.io
+
+
+https://blog.starkandwayne.com/2014/08/11/host-static-sites-on-cloud-foundry/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
