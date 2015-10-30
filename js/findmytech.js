@@ -246,7 +246,7 @@ angular.module('Techtracker', [])
                     $scope.ifbusy = false;
                     $scope.iffree = true;
                 }
-                if($scope.SelectedTech.jobOnTheway)
+                if($scope.SelectedTech.jobOnTheway && !$scope.SelectedTech.busy)
                 {
                     $scope.jobontheway = true;
                     $scope.ifbusy = false;
@@ -332,10 +332,7 @@ angular.module('Techtracker', [])
 
 
 
-           // google.maps.event.trigger(techMap, "resize");
-           // techMap.setCenter(myLatlng);
-           // google.maps.event.trigger(techMap, "resize");
-            //techMap.setCenter(myLatlng);
+          
 
             google.maps.event.addListener(map, 'mouseOver', function() {
                 techMap.setCenter(myLatlng);
