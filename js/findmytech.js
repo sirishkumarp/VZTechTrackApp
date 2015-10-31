@@ -324,99 +324,75 @@ angular.module('Techtracker', [])
         }
 
 
-        $scope.initTechMap = function(){
+        $scope.initTechMap = function() {
 
-            var myLatlng = new google.maps.LatLng($scope.SelectedTech.lat, $scope.SelectedTech.lng);
-
-
-            if($scope.techMap.center == undefined) {
-                $scope.techMap = new google.maps.Map(document.getElementById('techmap'), {
-                    zoom: 13,
-                    center: {lat: $scope.SelectedTech.lat, lng: $scope.SelectedTech.lng}
-                });
-
-                var icoMarker1;
-                if($scope.techAtTheLocation)
-                    icoMarker1 = "img/Busy.png";
-                else
-                    icoMarker1 = "img/office.png";
+            var selTechsLatlng = new google.maps.LatLng($scope.SelectedTech.lat, $scope.SelectedTech.lng);
 
 
-                var icoMarker2;
-                if($scope.techAtTheLocation)
-                    icoMarker2 = "img/Busy.png";
-                else
-                    icoMarker2 = "img/TechieOnTheGo.png";
-
-
-                var marker1 = new google.maps.Marker({
-                    map:  $scope.techMap,
-                    position:  new google.maps.LatLng( $scope.SelectedTech.joblocation.lat,  $scope.SelectedTech.joblocation.lng),
-                    icon: icoMarker1,
-                    title:"jobLocation of "+"Tech:"+$scope.SelectedTech.id
-                });
-                $scope.techMap.marker1 = marker1;
-
-
-                var marker2 = new google.maps.Marker({
-                    map:  $scope.techMap,
-                    position:  new google.maps.LatLng( $scope.SelectedTech.lat,  $scope.SelectedTech.lng),
-                    icon: icoMarker2,
-                    title: "currentLocation of "+"Tech:"+$scope.SelectedTech.id
-                });
-                $scope.techMap.marker2 = marker2;
-            }
-            else
-            {
-                $scope.techMap.setCenter(myLatlng);
-                if($scope.techAtTheLocation)
-                    $scope.techMap.marker1.setIcon("img/Busy.png");
-                else
-                    $scope.techMap.marker1.setIcon("img/office.png");
-
-
-
-
-                if($scope.techAtTheLocation)
-                    $scope.techMap.marker2.setIcon("img/Busy.png");
-                else
-                    $scope.techMap.marker2.setIcon("img/TechieOnTheGo.png");
-
-                $scope.techMap.marker1.setPosition(new google.maps.LatLng( $scope.SelectedTech.joblocation.lat,  $scope.SelectedTech.joblocation.lng));
-                $scope.techMap.marker2.setPosition(new google.maps.LatLng( $scope.SelectedTech.lat,  $scope.SelectedTech.lng));
-                google.maps.event.trigger($scope.techMap, "click");
-                google.maps.event.trigger($scope.techMap, "resize");
-            }
-
-
-            google.maps.event.addListener($scope.techMap, 'click', function(event) {
-                $scope.techMap.setCenter(myLatlng);
-                google.maps.event.trigger($scope.techMap, "resize");
-                $scope.techMap.setCenter(myLatlng);
-                google.maps.event.trigger($scope.techMap, "resize");
-             });
-
-
-           /* google.maps.event.addDomListener(window, "resize", function() {
-                var center = myTechMap.getCenter();
-                google.maps.event.trigger(myTechMap, "resize");
-                myTechMap.setCenter(center);
+            var techsMap = new google.maps.Map(document.getElementById('techmap'), {
+                zoom: 13,
+                center: {lat: $scope.SelectedTech.lat, lng: $scope.SelectedTech.lng}
             });
-            */
+
+            var icoMarker1;
+            if ($scope.techAtTheLocation)
+                icoMarker1 = "img/Busy.png";
+            else
+                icoMarker1 = "img/office.png";
+
+
+            var icoMarker2;
+            if ($scope.techAtTheLocation)
+                icoMarker2 = "img/Busy.png";
+            else
+                icoMarker2 = "img/TechieOnTheGo.png";
+
+
+            var marker1 = new google.maps.Marker({
+                map: techsMap,
+                position: new google.maps.LatLng($scope.SelectedTech.joblocation.lat, $scope.SelectedTech.joblocation.lng),
+                icon: icoMarker1,
+                title: "jobLocation assigned to " + $scope.SelectedTech.name
+            });
+
+
+            var marker2 = new google.maps.Marker({
+                map: techsMap,
+                position: new google.maps.LatLng($scope.SelectedTech.lat, $scope.SelectedTech.lng),
+                icon: icoMarker2,
+                title: "currentLocation of " + $scope.SelectedTech.name
+            });
+
+
+            google.maps.event.addListener(techsMap, 'click', function (event) {
+                techsMap.setCenter(selTechsLatlng);
+                google.maps.event.trigger(techsMap, "resize");
+                techsMap.setCenter(selTechsLatlng);
+                google.maps.event.trigger(techsMap, "resize");
+            });
+
+
+            google.maps.event.addDomListener(window, "resize", function () {
+                var center = techsMap.getCenter();
+                google.maps.event.trigger(techsMap, "resize");
+                techsMap.setCenter(center);
+            });
+
+
             /* google.maps.event.addListener(myMap, 'click', function(event) {
 
              console.log(event.latLng)
              });
 
 
-            google.maps.event.addListener(map, 'mouseOver', function() {
-                techMap.setCenter(myLatlng);
-                google.maps.event.trigger(map, 'resize');
-            });
-            marker1.addListener('click', function() {
-                map.setZoom(8);
-                map.setCenter(myLatlng);
-            });
+             google.maps.event.addListener(map, 'mouseOver', function() {
+             techMap.setCenter(myLatlng);
+             google.maps.event.trigger(map, 'resize');
+             });
+             marker1.addListener('click', function() {
+             map.setZoom(8);
+             map.setCenter(myLatlng);
+             });
              */
         }
 
