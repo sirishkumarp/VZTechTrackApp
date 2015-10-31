@@ -29,7 +29,7 @@
   <button class="btn btn-lg btn-primary btn-block marbt10" ng-click="showTechnician()">Technician</button>-->
     <label class="radio-inline"><input type="radio" class="marbt10" name="tracker" ng-click="showCustomer()">Customer</label>
     <label class="radio-inline"><input type="radio" class="marbt10" name="tracker" ng-click="showTechnician()">Technician</label>
-
+    <label class="radio-inline"><input type="radio" class="marbt10" name="tracker" ng-click="showAllTechs()">AllTechnicians</label>
 </div>
 
 <div id="customer" ng-show="showcustomer">
@@ -51,6 +51,7 @@
 </div>
 
 <div id="map" class="marbt10" ng-show="toshowmap" style="width:100%;height:400px;"  ></div>
+    <div  ng-show="toshowmap"><img src="img/home_small.png"/>-Home<img src="img/TechieOnTheGo_small.png"/>-Nearest<img src="img/Techie_small.png"/>-Available</div>
 
     <div class="marbt10" ng-show="toshowmap">
         <button id="confirm" class="btn btn-lg btn-primary btn-block marbt10" ng-click="custconfirm()">Confirm</button>
@@ -72,14 +73,27 @@
     </div>
     <div>
         <button id="Busy" class="btn btn-lg btn-primary btn-block marbt10" ng-click="getBusy()"  ng-show=iffree>Get Busy</button>
-        <button id="Free" class="btn btn-lg btn-primary btn-block marbt10" ng-click="getFree()"  ng-show=ifbusy>Get Free</button>
-        <div ng-show="jobontheway">
+        <button id="Free" class="btn btn-lg btn-primary btn-block marbt10" ng-click="getFree()"  ng-show=ifbusy>Job Done</button>
+        <div ng-show="jobontheway && !ifbusy"  class = "label label-danger">
             <label>A job is ready to get assigned to you</label>
+        </div>
+        <div ng-show="ifbusy && !techAtTheLocation"  class = "label label-warning">
+            <label>A job has been already assigned, please reach out to the customer</label>
+        </div>
+        <div ng-show="ifbusy && techAtTheLocation"  class = "label label-success">
+            <label>Work in Progress</label>
         </div>
     </div>
         <div id="techmap" class="marbt10" ng-show="ifbusy" style="width:100%;height:400px;"></div>
+        <div ng-show="ifbusy && !techAtTheLocation" ><img src="img/TechieOnTheGo_small.png"/>-Techie<img src="img/office_small.png"/>-Customer</div>
+        <div ng-show="ifbusy && techAtTheLocation"><img src="img/workInProgress_small.png"/>-JobLoc</div>
     </div>
 
+</div>
+
+<div id="AllTechs" ng-show="showAllTechies">
+    <div id="allTechsMap" class="marbt10" style="width:100%;height:400px;"  ></div>
+    <div><img src="img/TechieOnTheGo_small.png"/>-Available<img src="img/Techie_small.png"/>-Busy</div>
 </div>
 </div>
 <div class="modal fade" id="confirminfo">

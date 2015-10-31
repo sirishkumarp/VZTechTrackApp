@@ -32,7 +32,7 @@ angular.module('Techtracker', [])
             {techId:"9",corecomp:"Fios"},
             {techId:"10",corecomp:"Dsl"},
             {techId:"11",corecomp:"Fios"},
-            {techId:"12",corecomp:"Dsl"},
+            {techId:"12",corecomp:"Dsl"}
 
         ];
 
@@ -69,10 +69,12 @@ angular.module('Techtracker', [])
 
         $scope.showcustomer=false;
         $scope.showtechnician=false;
+        $scope.showAllTechies = false;
 
         $scope.showTechnician = function(){
             $scope.showcustomer=false;
             $scope.showtechnician=true;
+            $scope.showAllTechies = false;
             $scope.SelectedTech={};
             $scope.showTech = false;
 //            $scope.getTechDetail();
@@ -81,13 +83,55 @@ angular.module('Techtracker', [])
         $scope.showCustomer = function(){
             $scope.showcustomer=true;
             $scope.showtechnician=false;
+            $scope.showAllTechies = false
         };
+
+        $scope.showAllTechs = function(){
+            $scope.showcustomer = false;
+            $scope.showtechnician = false;
+            $scope.showAllTechies = true;
+
+            var allTechsCenter = new google.maps.LatLng($scope.techdetails[2].lat,$scope.techdetails[2].lng);
+
+            var allTechsMap = new google.maps.Map(document.getElementById('allTechsMap'), {
+                zoom: 13,
+                center: allTechsCenter
+            });
+
+            angular.forEach($scope.techdetails,function(allTechs,key){
+                var icon = "";
+                if(allTechs.busy) {
+                    icon = "img/Techie.png";
+                }
+                else
+                    icon = "img/TechieOnTheGo.png";
+
+                var marker = new google.maps.Marker({
+                    map: allTechsMap,
+                    title: allTechs.name,
+                    position: new google.maps.LatLng(allTechs.lat, allTechs.lng),
+                    icon: icon
+                });
+            });
+            document.body.scrollTop = 250;
+            google.maps.event.addListener(allTechsMap, 'click', function(event) {
+                allTechsMap.setCenter(allTechsCenter);
+                google.maps.event.trigger(allTechsMap, "resize");
+                allTechsMap.setCenter(allTechsCenter);
+                google.maps.event.trigger(allTechsMap, "resize");
+            });
+
+            google.maps.event.trigger(allTechsMap, "click");
+            google.maps.event.trigger(allTechsMap, "resize");
+            google.maps.event.trigger(allTechsMap, "click");
+        }
 
        // $scope.myproblem = "Please select your problem"; // red
         $scope.homeObj = {};
         $scope.myproblem = $scope.problems[0];
         $scope.showproblems = function(){
             $scope.clicked = true;
+            $scope.toshowmap = false;
 
 
 
@@ -159,7 +203,7 @@ angular.module('Techtracker', [])
                         icon = "img/Techie.png";
                     var marker = new google.maps.Marker({
                         map: myMap,
-                        title: "Tech"+myNrTech.name,
+                        title: myNrTech.name,
                         position: new google.maps.LatLng(myNrTech.lat, myNrTech.lng),
                         icon: icon
                     });
@@ -229,7 +273,9 @@ angular.module('Techtracker', [])
         $scope.iffree = false;
         $scope.jobontheway=false;
         $scope.showTech=false;
+        $scope.techAtTheLocation = false;
         $scope.getTechDetail = function(){
+            $scope.techAtTheLocation = false;
             if($scope.SelectedTech.id !== undefined && $scope.SelectedTech != "") {
                 $scope.showTech = true;
 
@@ -240,6 +286,9 @@ angular.module('Techtracker', [])
                         $scope.SelectedTech.joblocation.lat = $scope.SelectedTech.lat;
                         $scope.SelectedTech.joblocation.lng = $scope.SelectedTech.lng;
                     }
+                    if($scope.SelectedTech.joblocation.lat == $scope.SelectedTech.lat && $scope.SelectedTech.joblocation.lng == $scope.SelectedTech.lng)
+                        $scope.techAtTheLocation = true;
+
                     $scope.initTechMap();
                 }
                 else {
@@ -262,6 +311,7 @@ angular.module('Techtracker', [])
             $scope.iffree = false;
             $scope.SelectedTech.joblocation.lat = $scope.SelectedTech.lat;
             $scope.SelectedTech.joblocation.lng = $scope.SelectedTech.lng;
+            $scope.techAtTheLocation = true;
             $scope.initTechMap();
             google.maps.event.trigger($scope.techMap, "resize");
         }
@@ -285,11 +335,24 @@ angular.module('Techtracker', [])
                     center: {lat: $scope.SelectedTech.lat, lng: $scope.SelectedTech.lng}
                 });
 
+                var icoMarker1;
+                if($scope.techAtTheLocation)
+                    icoMarker1 = "img/Busy.png";
+                else
+                    icoMarker1 = "img/office.png";
+
+
+                var icoMarker2;
+                if($scope.techAtTheLocation)
+                    icoMarker2 = "img/Busy.png";
+                else
+                    icoMarker2 = "img/TechieOnTheGo.png";
+
 
                 var marker1 = new google.maps.Marker({
                     map:  $scope.techMap,
                     position:  new google.maps.LatLng( $scope.SelectedTech.joblocation.lat,  $scope.SelectedTech.joblocation.lng),
-                    icon:"img/Office.png",
+                    icon: icoMarker1,
                     title:"jobLocation of "+"Tech:"+$scope.SelectedTech.id
                 });
                 $scope.techMap.marker1 = marker1;
@@ -298,7 +361,7 @@ angular.module('Techtracker', [])
                 var marker2 = new google.maps.Marker({
                     map:  $scope.techMap,
                     position:  new google.maps.LatLng( $scope.SelectedTech.lat,  $scope.SelectedTech.lng),
-                    icon:"img/Tech.png",
+                    icon: icoMarker2,
                     title: "currentLocation of "+"Tech:"+$scope.SelectedTech.id
                 });
                 $scope.techMap.marker2 = marker2;
@@ -316,6 +379,8 @@ angular.module('Techtracker', [])
             google.maps.event.addListener($scope.techMap, 'click', function(event) {
                 $scope.techMap.setCenter(myLatlng);
                 google.maps.event.trigger($scope.techMap, "resize");
+                $scope.techMap.setCenter(myLatlng);
+                google.maps.event.trigger($scope.techMap, "resize");
              });
 
 
@@ -328,12 +393,8 @@ angular.module('Techtracker', [])
             /* google.maps.event.addListener(myMap, 'click', function(event) {
 
              console.log(event.latLng)
-             });*/
+             });
 
-
-
-
-          
 
             google.maps.event.addListener(map, 'mouseOver', function() {
                 techMap.setCenter(myLatlng);
@@ -343,6 +404,7 @@ angular.module('Techtracker', [])
                 map.setZoom(8);
                 map.setCenter(myLatlng);
             });
+             */
         }
 
 
