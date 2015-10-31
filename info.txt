@@ -61,14 +61,9 @@ https://blog.starkandwayne.com/2014/08/11/host-static-sites-on-cloud-foundry/
 
 
 
+$ cf login -a https://api.run.pivotal.io
+  Email: sirishkumar.p@gmail.com
+  Password: ••••••••
 
-
-
-
-
-
-
-
-
-
-
+wget https://github.com/cloudfoundry/staticfile-buildpack/releases/download/v0.9.9/staticfile-buildpackv0.9.9.zip
+cf update-buildpack staticfiles_buildpack -p staticfile-buildpackv0.9.9.zip
