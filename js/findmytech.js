@@ -189,7 +189,7 @@ angular.module('Techtracker', [])
                 var marker = new google.maps.Marker({
                     map: myMap,
                     position:  new google.maps.LatLng( $scope.homeObj.lat,  $scope.homeObj.lng),
-                    icon:"img/Home.png",
+                    icon:"img/Home_big.png",
                     title: "Home"
                 });
                 angular.forEach($scope.myNearestTech,function(myNrTech,key){
@@ -338,7 +338,7 @@ angular.module('Techtracker', [])
             if ($scope.techAtTheLocation)
                 icoMarker1 = "img/Busy.png";
             else
-                icoMarker1 = "img/office.png";
+                icoMarker1 = "img/Office_big.png";
 
 
             var icoMarker2;
@@ -348,7 +348,7 @@ angular.module('Techtracker', [])
                 icoMarker2 = "img/TechieOnTheGo.png";
 
 
-            var marker1 = new google.maps.Marker({
+            var jobMarker = new google.maps.Marker({
                 map: techsMap,
                 position: new google.maps.LatLng($scope.SelectedTech.joblocation.lat, $scope.SelectedTech.joblocation.lng),
                 icon: icoMarker1,
@@ -356,7 +356,7 @@ angular.module('Techtracker', [])
             });
 
 
-            var marker2 = new google.maps.Marker({
+            var techsMarker = new google.maps.Marker({
                 map: techsMap,
                 position: new google.maps.LatLng($scope.SelectedTech.lat, $scope.SelectedTech.lng),
                 icon: icoMarker2,
