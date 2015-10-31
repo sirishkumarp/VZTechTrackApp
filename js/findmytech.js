@@ -22,21 +22,18 @@ angular.module('Techtracker', [])
 
         $rootScope.techCompetency = [
             {techId:"1",corecomp:"Fios"},
-            {techId:"1",corecomp:"Dsl"},
             {techId:"2",corecomp:"Dsl"},
             {techId:"3",corecomp:"Fios"},
             {techId:"4",corecomp:"Fios"},
             {techId:"5",corecomp:"Fios"},
             {techId:"6",corecomp:"Fios"},
-            {techId:"7",corecomp:"Fios"},
+            {techId:"7",corecomp:"Dsl"},
             {techId:"8",corecomp:"Fios"},
             {techId:"9",corecomp:"Fios"},
-            {techId:"10",corecomp:"Fios"},
+            {techId:"10",corecomp:"Dsl"},
             {techId:"11",corecomp:"Fios"},
-            {techId:"12",corecomp:"Fios"},
-            {techId:"4",corecomp:"Dsl"},
-            {techId:"5",corecomp:"Dsl"},
-            {techId:"6",corecomp:"Dsl"}
+            {techId:"12",corecomp:"Dsl"},
+
         ];
 
         $rootScope.locations = [
@@ -55,18 +52,18 @@ angular.module('Techtracker', [])
         ];
 
         $rootScope.techdetails =[
-            {name:"1",id:"1",mobile:"123467891",lat:$scope.locations[0].lat, lng:$scope.locations[0].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"2",id:"2",mobile:"12346891",lat:$scope.locations[1].lat, lng:$scope.locations[1].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"3",id:"3",mobile:"12367891",lat:$scope.locations[2].lat, lng:$scope.locations[2].lng, joblocation:{}, busy:true, jobOnTheway : false},
-            {name:"4",id:"4",mobile:"12347891",lat:$scope.locations[3].lat, lng:$scope.locations[3].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"5",id:"5",mobile:"12347891",lat:$scope.locations[4].lat, lng:$scope.locations[4].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"6",id:"6",mobile:"12346891",lat:$scope.locations[5].lat, lng:$scope.locations[5].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"7",id:"7",mobile:"12346547891",lat:$scope.locations[6].lat, lng:$scope.locations[6].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"8",id:"8",mobile:"1234467891",lat:$scope.locations[7].lat, lng:$scope.locations[7].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"9",id:"9",mobile:"1234675891",lat:$scope.locations[8].lat, lng:$scope.locations[8].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"10",id:"10",mobile:"1234567891",lat:$scope.locations[9].lat, lng:$scope.locations[9].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"11",id:"11",mobile:"1234657891",lat:$scope.locations[10].lat, lng:$scope.locations[10].lng, joblocation:{}, busy:false, jobOnTheway : false},
-            {name:"12",id:"12",mobile:"1234657891",lat:$scope.locations[11].lat, lng:$scope.locations[11].lng, joblocation:{}, busy:false, jobOnTheway : false}
+            {name:"Hagrid",id:"1",mobile:"123467891",lat:$scope.locations[0].lat, lng:$scope.locations[0].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Lucius",id:"2",mobile:"12346891",lat:$scope.locations[1].lat, lng:$scope.locations[1].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Draco",id:"3",mobile:"12367891",lat:$scope.locations[2].lat, lng:$scope.locations[2].lng, joblocation:{}, busy:true, jobOnTheway : false},
+            {name:"Ron",id:"4",mobile:"12347891",lat:$scope.locations[3].lat, lng:$scope.locations[3].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Dumbledore",id:"5",mobile:"12347891",lat:$scope.locations[4].lat, lng:$scope.locations[4].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Snape",id:"6",mobile:"12346891",lat:$scope.locations[5].lat, lng:$scope.locations[5].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Lupin",id:"7",mobile:"12346547891",lat:$scope.locations[6].lat, lng:$scope.locations[6].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Black",id:"8",mobile:"1234467891",lat:$scope.locations[7].lat, lng:$scope.locations[7].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"James",id:"9",mobile:"1234675891",lat:$scope.locations[8].lat, lng:$scope.locations[8].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Dudley",id:"10",mobile:"1234567891",lat:$scope.locations[9].lat, lng:$scope.locations[9].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Harry",id:"11",mobile:"1234657891",lat:$scope.locations[10].lat, lng:$scope.locations[10].lng, joblocation:{}, busy:false, jobOnTheway : false},
+            {name:"Neville",id:"12",mobile:"1234657891",lat:$scope.locations[11].lat, lng:$scope.locations[11].lng, joblocation:{}, busy:false, jobOnTheway : false}
 
         ];
 
@@ -121,7 +118,9 @@ angular.module('Techtracker', [])
             $scope.SelectedTech.busy = true;
             $scope.SelectedTech.jobOnTheway = false;
             $scope.SelectedTech.joblocation = {lat: $scope.homeObj.lat, lng: $scope.homeObj.lng};
-            alert("Your Tech is on the way, his name:"+ $scope.SelectedTech.name+" and mobile no:"+ $scope.SelectedTech.mobile);
+            $("#confirminfo").modal("show");
+			
+			//alert("Your Tech is on the way, his name:"+ $scope.SelectedTech.name+" and mobile no:"+ $scope.SelectedTech.mobile);
         };
         $scope.showmap = function() {
             $scope.toshowmap = true;
