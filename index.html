@@ -13,6 +13,8 @@
     <title>Tech tracker</title>
     <script src="js/angular.min.js"></script>
     <script src="js/findmytech.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbkaezXl9cJKLb0ACxy0XzjNZ-QcsBFbk&signed_in=true&libraries=places"></script>
 
 
@@ -58,7 +60,7 @@
 <div id="Technician" ng-show="showtechnician">
     <div  class="marbt10">
         <select class="form-control marbt10" ng-model="SelectedTech" ng-init="SelectedTech = {name:'DDD'}"  ng-options="tech.name for tech in techdetails" ng-change = "getTechDetail()">
-       yyytt </select>
+       </select>
     </div>
     <div ng-show="showTech">
     <div  class="marbt10">
@@ -79,6 +81,20 @@
     </div>
 
 </div>
+</div>
+<div class="modal fade" id="confirminfo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">VZ Help Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Your Tech is on the way, his name:{{SelectedTech.name}} and mobile no:{{SelectedTech.mobile}}</p>
+      </div>
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 </div>
 </body>
 </html>

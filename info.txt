@@ -38,10 +38,12 @@ C:\Users\Administrator>
 
 >cf login -a https://api.run.pivotal.io
 
-C:\Users\Administrator\Documents\GitHub>git clone https://github.com/sirishkumarp/VZTechTrackApp.git
+C:\Users\Administrator\Documents\GitHub>git clone https://github.com/sirishkumar
+p/VZTechTrackApp.git
 
 
-C:\Users\Administrator\Documents\GitHub>cd C:\Users\Administrator\Documents\GitHub
+C:\Users\Administrator\Documents\GitHub>cd C:\Users\Administrator\Documents\GitH
+ub
 
 
 
