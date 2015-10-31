@@ -381,7 +381,7 @@ angular.module('Techtracker', [])
                     $scope.techMap.marker2.setIcon("img/Busy.png");
                 else
                     $scope.techMap.marker2.setIcon("img/TechieOnTheGo.png");
-                    
+
                 $scope.techMap.marker1.setPosition(new google.maps.LatLng( $scope.SelectedTech.joblocation.lat,  $scope.SelectedTech.joblocation.lng));
                 $scope.techMap.marker2.setPosition(new google.maps.LatLng( $scope.SelectedTech.lat,  $scope.SelectedTech.lng));
                 google.maps.event.trigger($scope.techMap, "click");
