@@ -133,7 +133,7 @@ angular.module('Techtracker', [])
             window.initMap =  function(){
 
                 var myMap = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 12,
+                    zoom: 13,
                     center: {lat:  $scope.homeObj.lat, lng: $scope.homeObj.lng}
                 });
 
@@ -146,20 +146,21 @@ angular.module('Techtracker', [])
                 var marker = new google.maps.Marker({
                     map: myMap,
                     position:  new google.maps.LatLng( $scope.homeObj.lat,  $scope.homeObj.lng),
-                    icon:"img/yellow-dot.png"
+                    icon:"img/Home.png",
+                    title: "Home"
                 });
                 angular.forEach($scope.myNearestTech,function(myNrTech,key){
                     var icon = "";
                     if(myNrTech.nearest) {
-                        icon = "img/green-dot.png";
+                        icon = "img/TechieOnTheGo.png";
                         $scope.SelectedTech = myNrTech;
                         $scope.SelectedTech.jobOnTheway = true;
                     }
                     else
-                        icon = "img/blue-dot.png";
+                        icon = "img/Techie.png";
                     var marker = new google.maps.Marker({
                         map: myMap,
-                        title: myNrTech.d+" "+myNrTech.name,
+                        title: "Tech"+myNrTech.name,
                         position: new google.maps.LatLng(myNrTech.lat, myNrTech.lng),
                         icon: icon
                     });
@@ -263,6 +264,7 @@ angular.module('Techtracker', [])
             $scope.SelectedTech.joblocation.lat = $scope.SelectedTech.lat;
             $scope.SelectedTech.joblocation.lng = $scope.SelectedTech.lng;
             $scope.initTechMap();
+            google.maps.event.trigger($scope.techMap, "resize");
         }
 
         $scope.getFree = function(){
@@ -280,7 +282,7 @@ angular.module('Techtracker', [])
 
             if($scope.techMap.center == undefined) {
                 $scope.techMap = new google.maps.Map(document.getElementById('techmap'), {
-                    zoom: 12,
+                    zoom: 13,
                     center: {lat: $scope.SelectedTech.lat, lng: $scope.SelectedTech.lng}
                 });
 
@@ -288,7 +290,7 @@ angular.module('Techtracker', [])
                 var marker1 = new google.maps.Marker({
                     map:  $scope.techMap,
                     position:  new google.maps.LatLng( $scope.SelectedTech.joblocation.lat,  $scope.SelectedTech.joblocation.lng),
-                    icon:"img/green-dot.png",
+                    icon:"img/Office.png",
                     title:"jobLocation of "+"Tech:"+$scope.SelectedTech.id
                 });
                 $scope.techMap.marker1 = marker1;
@@ -297,7 +299,7 @@ angular.module('Techtracker', [])
                 var marker2 = new google.maps.Marker({
                     map:  $scope.techMap,
                     position:  new google.maps.LatLng( $scope.SelectedTech.lat,  $scope.SelectedTech.lng),
-                    icon:"img/blue-dot.png",
+                    icon:"img/Tech.png",
                     title: "currentLocation of "+"Tech:"+$scope.SelectedTech.id
                 });
                 $scope.techMap.marker2 = marker2;
