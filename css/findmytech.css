@@ -16,3 +16,18 @@ h2{
 .marbt10{
     margin-bottom: 10px;
 }
+.aligncenter{
+   /* padding: 40px 15px;*/
+    text-align: center;
+}
+.inline{
+    display: inline;
+}
+.fr{
+    float: right;
+}
+.padbtm40{
+    padding-bottom: 40px;
+}
+.pad20{
+  padding: 20px;}
