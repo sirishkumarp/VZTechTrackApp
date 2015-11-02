@@ -10,6 +10,7 @@
     <meta name="author" content="">
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/findmytech.css" rel="stylesheet"/>
+    <link href="css/signin.css" rel="stylesheet"/>
     <title>Tech tracker</title>
     <script src="js/angular.min.js"></script>
     <script src="js/findmytech.js"></script>
@@ -21,16 +22,41 @@
 </head>
 <body  ng-controller="ProblemController">
 <div  class="container">
-<div>
+    <div ng-show="!showRadio" class="padbtm40">
+        <h2 class="inline">Hello {{userID}}!!</h2>
+        <a ng-click="logout()" class="fr">Logout</a>
+    </div>
+
+<div class="marbt10 row aligncenter" ng-show="showRadio">
     <h2 class="title">Welcome to VZ Support</h2>
-</div>
-<div class="marbt10">
     <!--<button class="btn btn-lg btn-primary btn-block marbt10" ng-click="showCustomer()">Customer</button>
   <button class="btn btn-lg btn-primary btn-block marbt10" ng-click="showTechnician()">Technician</button>-->
-    <label class="radio-inline"><input type="radio" class="marbt10" name="tracker" ng-click="showCustomer()">Customer</label>
-    <label class="radio-inline"><input type="radio" class="marbt10" name="tracker" ng-click="showTechnician()">Technician</label>
-    <label class="radio-inline"><input type="radio" class="marbt10" name="tracker" ng-click="showAllTechs()">AllTechnicians</label>
+
+    <label class="radio-inline"><input type="radio" ng-model="radioValue" class="marbt10" name="tracker" value="Customer">Customer</label>
+
+    <label class="radio-inline"><input type="radio" ng-model="radioValue" class="marbt10" name="tracker" value="Technician">Technician</label>
+
 </div>
+
+
+<div class="marbt10 aligncenter" id="signin" ng-show="(radioValue == 'Customer'||radioValue =='Technician') && showSignin">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Sign In</h2>
+        <label class="sr-only">User ID</label>
+        <input type="text" ng-model="userID" class="form-control" placeholder="User ID" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="showcusttech()">Sign in</button>
+    </form>
+
+</div>
+
+
 
 <div id="customer" ng-show="showcustomer">
 
@@ -51,25 +77,32 @@
 </div>
 
 <div id="map" class="marbt10" ng-show="toshowmap" style="width:100%;height:400px;"  ></div>
-    <div  ng-show="toshowmap"><img src="img/home_small.png"/>-Home<img src="img/TechieOnTheGo_small.png"/>-Nearest<img src="img/Techie_small.png"/>-Available</div>
+   <div  ng-show="toshowmap">
+       <div class="inline"><img src="img/home_small.png"/>-Home</div>
+       <div  class="inline" ng-show="myproblem.jobComp =='Fios'"><img src="img/fiosTechie_small.png"/>-Nearest</div>
+       <div  class="inline" ng-show="myproblem.jobComp =='Dsl'"><img src="img/TechieOnTheGo_small.png"/>-Nearest</div>
+       <div  class="inline"><img src="img/Techie_small.png"/>-Available</div>
+   </div>
 
     <div class="marbt10" ng-show="toshowmap">
         <button id="confirm" class="btn btn-lg btn-primary btn-block marbt10" ng-click="custconfirm()">Confirm</button>
     </div>
 
 </div>
-<div id="Technician" ng-show="showtechnician">
-    <div  class="marbt10">
-        <select class="form-control marbt10" ng-model="SelectedTech" ng-init="SelectedTech = {name:'DDD'}"  ng-options="tech.name for tech in techdetails" ng-change = "getTechDetail()">
-       </select>
+    <div ng-show="showtechnician">
+        <label class="radio-inline"><input type="radio" class="marbt10" name="technician" ng-model="techchecked" ng-click="getTechDetail()">YourInfo</label>
+        <label class="radio-inline"><input type="radio" class="marbt10" name="technician" ng-model="techAllchecked" ng-click="showAllTechs()">AllTechnicians</label>
     </div>
-    <div ng-show="showTech">
-    <div  class="marbt10">
+<div id="Technician">
 
-            <label>Name:</label>{{SelectedTech.name}}
-            <label>id:</label>{{SelectedTech.id}}
-            <label>mobile:</label>{{SelectedTech.mobile}}
-            <label>busy:</label>{{SelectedTech.busy}}
+    <div ng-show="showTech">
+    <div  class="marbt10 pad20">
+        <label  class="label label-default">ID</label><label>: {{SelectedTech.id}}</label><br/><br/>
+        <label  class="label label-default">Mobile</label><label>: {{SelectedTech.mobile}}</label><br/><br/>
+        <label  class="label label-default">Status</label>
+        <label ng-show="SelectedTech.busy"> : On The Job</label>
+        <label ng-show="!SelectedTech.busy"> : Idle</label>
+
     </div>
     <div>
         <button id="Busy" class="btn btn-lg btn-primary btn-block marbt10" ng-click="getBusy()"  ng-show=iffree>Get Busy</button>
@@ -93,7 +126,7 @@
 
 <div id="AllTechs" ng-show="showAllTechies">
     <div id="allTechsMap" class="marbt10" style="width:100%;height:400px;"  ></div>
-    <div><img src="img/TechieOnTheGo_small.png"/>-Available<img src="img/Techie_small.png"/>-Busy</div>
+    <div><img src="img/fiosTechie_small.png"/>-fios<img src="img/TechieOnTheGo_small.png"/>-DSL<img src="img/Techie_small.png"/>-Busy</div>
 </div>
 </div>
 <div class="modal fade" id="confirminfo">

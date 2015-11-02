@@ -70,6 +70,7 @@ angular.module('Techtracker', [])
         $scope.showcustomer=false;
         $scope.showtechnician=false;
         $scope.showAllTechies = false;
+        $scope.showRadio = true;
 
         $scope.showTechnician = function(){
             $scope.showcustomer=false;
@@ -83,13 +84,57 @@ angular.module('Techtracker', [])
         $scope.showCustomer = function(){
             $scope.showcustomer=true;
             $scope.showtechnician=false;
-            $scope.showAllTechies = false
+           // $scope.showAllTechies = false
+        };
+
+/*
+        if($scope.radioValue == "customer"){
+            $scope.showCustlogin=true;
+            $scope.showTechlogin=false;
+
+        }
+        else if($scope.radioValue == "technician"){
+            $scope.showTechlogin=true;
+            $scope.showCustlogin=false;
+        }
+*/
+        $scope.logout = function(){
+            $scope.showRadio = true;
+            $scope.showcustomer=false;
+            $scope.showtechnician=false;
+            $scope.radioValue = "";
+            $scope.showSignin = true;
+            $scope.showTech = false;
+            $scope.showAllTechies = false;
+            $scope.techchecked = false;
+            $scope.techAllchecked = false;
+        }
+
+        $scope.showSignin = true;
+        $scope.showcusttech = function(){
+
+            $scope.showRadio = false;
+            $scope.showSignin = false;
+            if($scope.radioValue == "Customer"){
+                $scope.showCustomer();
+
+            }
+            else if($scope.radioValue == "Technician"){
+                $scope.techchecked = false;
+                $scope.techAllchecked = false;
+                $scope.showTechnician();
+               // $scope.radioValue = "";
+            }
+
+
+
         };
 
         $scope.showAllTechs = function(){
             $scope.showcustomer = false;
-            $scope.showtechnician = false;
+            //$scope.showtechnician = false;
             $scope.showAllTechies = true;
+            $scope.showTech = false;
 
             var allTechsCenter = new google.maps.LatLng($scope.techdetails[2].lat,$scope.techdetails[2].lng);
 
@@ -104,7 +149,19 @@ angular.module('Techtracker', [])
                     icon = "img/Techie.png";
                 }
                 else
-                    icon = "img/TechieOnTheGo.png";
+                {
+                    angular.forEach($scope.techCompetency,function(techComp,key){
+
+                        if(techComp.techId == allTechs.id)
+                        {
+                            if(techComp.corecomp == "Fios")
+                                icon = "img/fiosTechie.png";
+                            else
+                                icon = "img/TechieOnTheGo.png";
+                        }
+                    });
+
+                }
 
                 var marker = new google.maps.Marker({
                     map: allTechsMap,
@@ -195,7 +252,10 @@ angular.module('Techtracker', [])
                 angular.forEach($scope.myNearestTech,function(myNrTech,key){
                     var icon = "";
                     if(myNrTech.nearest) {
-                        icon = "img/TechieOnTheGo.png";
+                        if( $scope.myproblem.jobComp == "Fios")
+                            icon = "img/fiosTechie.png";
+                        else
+                            icon = "img/TechieOnTheGo.png";
                         $scope.SelectedTech = myNrTech;
                         $scope.SelectedTech.jobOnTheway = true;
                     }
@@ -275,6 +335,17 @@ angular.module('Techtracker', [])
         $scope.showTech=false;
         $scope.techAtTheLocation = false;
         $scope.getTechDetail = function(){
+            $scope.showAllTechies=false;
+            $scope.showTech = true;
+
+            angular.forEach($scope.techdetails,function(techs,key)
+            {
+               if(techs.name == $scope.userID) {
+                   $scope.SelectedTech = techs;
+               }
+            });
+
+
             $scope.techAtTheLocation = false;
             if($scope.SelectedTech.id !== undefined && $scope.SelectedTech != "") {
                 $scope.showTech = true;
